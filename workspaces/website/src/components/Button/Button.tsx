@@ -14,7 +14,10 @@ type props = {
     | "switch"
     | "filter"
     | "filterActive"
+    | "smallFilter"
+    | "smallFilterActive"
     | "category"
+    | "categoryVertical"
     | "icon";
   children: React.ReactNode;
   toId?: string;

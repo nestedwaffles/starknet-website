@@ -7,13 +7,16 @@ import {
   Icon,
   Flex,
   ChakraProps,
-  useBreakpointValue
+  useBreakpointValue,
+  BoxProps,
+  FlexProps
 } from "@chakra-ui/react";
 import { Text } from "@ui/Typography/Text";
 import { Heading } from "@ui/Typography/Heading";
-import { FiBookOpen, FiHeadphones, FiTv } from "react-icons/fi";
 import { CardGradientBorder } from "@ui/Card/components/CardGradientBorder";
 import { Category as DataCategory } from "@starknet-io/cms-data/src/categories";
+import { ReactNode } from "react";
+import { FiBookOpen, FiHeadphones, FiTv } from "react-icons/fi";
 
 type RootProps = {
   children: React.ReactNode;
@@ -43,39 +46,53 @@ const Root = ({ children, href, type = "grid", sx }: RootProps) => {
   );
 };
 
-type ImageProps = {
+type ImageProps = BoxProps & {
+  children?: ReactNode;
   url?: string;
   imageAlt?: string;
   type?: | "grid" | "featured";
 };
 
-const Image = ({ url, imageAlt, type = "grid" }: ImageProps) => {
+const Image = ({ children, url, imageAlt, type = "grid", ...rest }: ImageProps) => {
   const size = useBreakpointValue({ base: '581px', sm: '350px', md: '430px', xl: '320px' });
   const featuredImageSize = useBreakpointValue({ base: '581px', sm: '350px', md: '430px', lg: '550px', xl: '606px' });
   const cloudflareImage = `https://starknet.io/cdn-cgi/image/width=${type === "featured" ? featuredImageSize : size},height=auto,format=auto${url}`;
   const isProd  = import.meta.env.VITE_ALGOLIA_INDEX === "production";
   return (
-    <Box overflow="hidden" {...type === "featured" && { width: "auto", maxWidth: "60%"}}>
+    <Box
+      overflow="hidden"
+      {...type === "featured" && { width: "auto", maxWidth: "60%"}}
+      {...rest}
+    >
       <ChakraImage
         src={isProd ? cloudflareImage : url}
         alt={imageAlt}
         width="full"
-        height={type === "featured" ? "100%" : { base: "16rem", md: "12rem", lg: "10rem" }}
+        height={'100%'}
         objectFit="cover"
         {...type === "grid" && { borderTopRadius: 8}}
       />
+
+      {children}      
     </Box>
   );
 };
 
-type BodyProps = {
+type BodyProps = FlexProps & {
   children: React.ReactNode;
   type?: | "grid" | "featured";
 };
 
-const Body = ({ children, type = "grid" }: BodyProps) => {
+const Body = ({ children, type = "grid", ...rest }: BodyProps) => {
   return (
-    <Flex flex={1} direction="column" pl={6} pr={6} {...type === "featured" && { pt: 8 }}>
+    <Flex
+      flex={1}
+      direction="column"
+      pl={6}
+      pr={6}
+      {...type === "featured" && { pt: 8 }}
+      {...rest}
+    >
       {children}
     </Flex>
   );
@@ -95,15 +112,19 @@ const Category = ({ category }: CategoryProps) => {
   );
 };
 
-type ContentProps = {
+type ContentProps = FlexProps & {
   title: string;
   excerpt: string;
   type?: | "grid" | "featured";
 };
 
-const Content = ({ title, excerpt, type = "grid" }: ContentProps) => {
+const Content = ({ title, excerpt, type = "grid", ...rest }: ContentProps) => {
   return (
-    <Flex gap="3" direction="column" flex={1}>
+    <Flex 
+      gap="3" 
+      direction="column"
+      {...rest}
+    >
       <Heading
         color="heading-navy-fg"
         variant={type === "featured" ? "h2" : "h4"}
@@ -113,24 +134,27 @@ const Content = ({ title, excerpt, type = "grid" }: ContentProps) => {
       >
         {title}
       </Heading>
-      <Text variant="cardBody" noOfLines={4}>
+      <Text variant="cardBody" noOfLines={3}>
         {excerpt}
       </Text>
     </Flex>
   );
 };
 
-type FooterProps = {
+type FooterProps = FlexProps & {
+  hideIcon?: boolean;
   postType: string;
   publishedAt?: string;
   timeToConsume?: string;
   type?: | "grid" | "featured";
 };
 const Footer = ({
+  hideIcon,
   postType,
   publishedAt = "N/A",
   timeToConsume = "5min read",
-  type = "grid"
+  type = "grid",
+  ...rest
 }: FooterProps) => {
   const renderPostTypeIcon = () => {
     switch (postType) {
@@ -146,9 +170,14 @@ const Footer = ({
     }
   };
   return (
-    <Flex p={type === "featured" ? "14px 0" : 6}>
+    <Flex 
+      p={type === "featured" ? "14px 0" : 6} 
+      {...rest}
+    >
       <HStack>
+       {!hideIcon && (
         <Icon as={renderPostTypeIcon()} />
+       )}
 
         <Text fontSize="sm" color="muted">
           {publishedAt} ·

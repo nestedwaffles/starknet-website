@@ -83,6 +83,11 @@ export const postsCollectionConfig = {
       default: "article",
     },
     {
+      name: "isFeatured",
+      label: "Is featured post",
+      widget: "boolean",
+    },
+    {
       name: "title",
       label: "Post Title",
       widget: "string",

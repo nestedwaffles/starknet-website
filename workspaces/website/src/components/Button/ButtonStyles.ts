@@ -577,6 +577,63 @@ const category = defineStyle({
   },
 });
 
+const categoryVertical = defineStyle({
+  cursor: "pointer",
+  borderRadius: 0,
+  fontWeight: "medium",
+  fontSize: "14px",
+  lineHeight: "14px",
+  padding: "20px 12px",
+  color: "tabs-fg",
+  borderLeftWidth: "1px",
+  borderColor: "tabs-border-bg",
+
+  bg: "tabs-bg",
+  _hover: {
+    bg: "tabs-bg",
+    color: "tabs-hover-fg",
+  },
+  _active: {
+    bg: "tabs-bg",
+    color: "tabs-fg-active",
+    borderColor: "tabs-border-active-bg",
+  },
+});
+
+
+const smallFilter = defineStyle({
+  borderRadius: '8px',
+  fontWeight: "500",
+  fontSize: "12px",
+  lineHeight: "12px",
+  padding: "10px 12px",
+  color: "btn-filter-fg",
+  bg: "btn-filter-bg",
+  _hover: {
+    bg: "btn-filter-hover-bg",
+    color: "btn-filter-hover-fg",
+  },
+  _active: {
+    bg: "btn-filter-active-bg",
+    color: "btn-filter-active-fg",
+  },
+});
+
+const smallFilterActive = defineStyle({
+  borderRadius: '8px',
+  fontWeight: "medium",
+  fontSize: "12px",
+  lineHeight: "12px",
+  padding: "10px 12px",
+  bg: "btn-primary-bg",
+  color: "btn-filter-active-fg",
+  opacity: 0.72,
+  _hover: {
+    bg: "btn-filter-active-hover-bg",
+    color: "btn-filter-active-hover-fg",
+  },
+});
+
 const icon = defineStyle({
   height: "auto",
   padding: "11px",
@@ -649,7 +706,10 @@ export const buttonTheme = defineStyleConfig({
     ghost,
     filter,
     filterActive,
+    smallFilter,
+    smallFilterActive,
     category,
+    categoryVertical,
     switch: switchButton,
     icon
   },
