@@ -38,7 +38,7 @@ The StarkNet website includes the following features:
 
     `yarn install`
 
-4.  Update dynamic data:
+4.  Update the dynamic data:
 
     `yarn data`
 
@@ -48,7 +48,7 @@ The StarkNet website includes the following features:
 
 6.  Open your browser and visit `http://localhost:3000` to see the website running locally.
 
-## Contributing to the Code
+## Contributing to the Code:
 
 1.  Fork the repository to your own GitHub account.
 
@@ -79,4 +79,4 @@ We use Crowdin for translations. Visit [StarkNet Website on Crowdin](https://sta
 3.  Start translating the strings in the translation editor.
 4.  Save your changes and submit them for review.
 
-We appreciate all contributions! Your translations will help make the StarkNet website more accessible to people around the world.
+We appreciate all contributions! Your translations will help make the StarkNet website more accessible to people around the globe.
